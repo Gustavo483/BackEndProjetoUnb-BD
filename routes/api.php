@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AvaliacoesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,18 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
         Route::get('teste', 'teste')->name('teste');
         Route::post('logout', 'logout')->name('logout');
         Route::get('editUsuario', 'editUsuario')->name('editUsuario');
-        Route::put('uptadeUsuario/{id_usuario}', 'uptadeUsuario')->name('uptadeUsuario');
+        Route::put('updateUsuario/{id_usuario}', 'updateUsuario')->name('updateUsuario');
+    });
+
+    Route::controller(AvaliacoesController::class)->group(function () {
+        Route::post('filtrarTurmas', 'filtrarTurmas')->name('filtrarTurmas');
+        Route::post('criarAvaliacao/{id_turma}', 'criarAvaliacao')->name('criarAvaliacao');
+        Route::put('updateAvaliacao', 'updateAvaliacao')->name('updateAvaliacao');
+        Route::get('editarAvaliacao/{id_avaliacao}', 'editarAvaliacao')->name('editarAvaliacao');
+        Route::get('getAllDepartamento', 'getAllDepartamento')->name('getAllDepartamento');
+        Route::get('getDisciplinas/{id_departamento}', 'getDisciplinas')->name('getDisciplinas');
+        Route::get('getAvaliacoesUsuario/', 'getAvaliacoesUsuario')->name('getAvaliacoesUsuario');
+        Route::delete('DeleteAvaliacao/{id_avaliacao}', 'DeleteAvaliacao')->name('DeleteAvaliacao');
     });
 });
 

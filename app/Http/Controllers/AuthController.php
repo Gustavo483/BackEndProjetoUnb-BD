@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
 
-    public function uptadeUsuario(User $id_usuario,Request $request)
+    public function updateUsuario(User $id_usuario,Request $request)
     {
         if(isset($request->password)){
             // Validando os dados do request
@@ -61,6 +61,7 @@ class AuthController extends Controller
         ];
         return response($response, 201);
     }
+
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
@@ -138,6 +139,7 @@ class AuthController extends Controller
 
         return response($response, 201);
     }
+
 
     public function editUsuario()
     {

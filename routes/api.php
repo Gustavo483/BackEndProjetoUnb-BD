@@ -31,6 +31,9 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
         Route::get('getDisciplinas/{id_departamento}', 'getDisciplinas')->name('getDisciplinas');
         Route::get('getAvaliacoesUsuario/', 'getAvaliacoesUsuario')->name('getAvaliacoesUsuario');
         Route::delete('DeleteAvaliacao/{id_avaliacao}', 'DeleteAvaliacao')->name('DeleteAvaliacao');
+        Route::get('getProfessores/{id_departamento}', 'getProfessores')->name('getProfessores');
+        Route::post('criarAvaliacaoProfessor', 'criarAvaliacaoProfessor')->name('criarAvaliacaoProfessor');
+        Route::get('getAvaliacoesProfessoresUsuario/', 'getAvaliacoesProfessoresUsuario')->name('getAvaliacoesProfessoresUsuario');
     });
 });
 

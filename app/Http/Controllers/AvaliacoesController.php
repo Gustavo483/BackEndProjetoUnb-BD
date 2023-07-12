@@ -8,6 +8,49 @@ use mysql_xdevapi\Exception;
 
 class AvaliacoesController extends Controller
 {
+    public function getAvaliacoesProfessoresUsuario()
+    {
+        $id_usuario = auth()->user()->id;
+        $QueryProfessores = 'SELECT st_nomeProfessor FROM professores where st_nomeProfessor in (SELECT st_nomeProfessor FROM avaliacoes where id_usuario = '.$id_usuario.')';
+        $QueryAvaliacoes = 'SELECT int_estrelas,st_avaliacao,id_avaliacao,st_nomeProfessor FROM avaliacoes where id_usuario = '.$id_usuario;
+        $professores = DB::select($QueryProfessores);
+        $avaliacoes = DB::select($QueryAvaliacoes);
+
+        $response = [
+            'professores' => $professores,
+            'avaliacoes' => $avaliacoes,
+        ];
+
+        return response($response, 201);
+    }
+
+    public function criarAvaliacaoProfessor(Request $request)
+    {
+        $id_usuario = auth()->user()->id;
+        $dados = '"'.$request->int_estrelas.'","'.$request->st_avaliacao.'","'.$request->id_professor.'","'.$id_usuario.'","'.date('Y-m-d').'"';
+        $sql = 'INSERT INTO avaliacoes (int_estrelas,st_avaliacao, st_nomeProfessor,id_usuario,dt_cadastro) VALUES('.$dados.')';
+
+        DB::insert($sql);
+        $response = [
+            'message'=> 'Avaliação cadastrada com sucesso'
+        ];
+        return response($response, 201);
+    }
+    public function getProfessores($id_departamento)
+    {
+        $QueryProfessores = 'SELECT st_nomeProfessor FROM professores where id_codDepartamento = '.$id_departamento;
+        $QueryAvaliacoes = 'SELECT int_estrelas,st_avaliacao,id_avaliacao,st_nomeProfessor FROM avaliacoes where st_nomeProfessor in ( SELECT st_nomeProfessor FROM professores where id_codDepartamento = '.$id_departamento.') order by dt_cadastro';
+        $professores = DB::select($QueryProfessores);
+        $avaliacoes = DB::select($QueryAvaliacoes);
+
+        $response = [
+            'professores' => $professores,
+            'avaliacoes' => $avaliacoes,
+        ];
+
+        return response($response, 201);
+
+    }
     public function getDisciplinas($id_departamento)
     {
         $sql = 'SELECT DISTINCT id_codDisciplina, st_nomeDisciplina FROM disciplinas WHERE id_codDepartamento ="'.$id_departamento.'"';
@@ -42,6 +85,18 @@ class AvaliacoesController extends Controller
 
         $response = [
             'departamentos' => $departamentos,
+        ];
+
+        return response($response, 201);
+    }
+
+    public function updateAvaliacao(Request $request)
+    {
+        $sql = 'UPDATE avaliacoes set st_avaliacao = "'.$request->st_avaliacao.'", int_estrelas = '.$request->int_estrelas.' where id_avaliacao = '.$request->id_avaliacao;
+        DB::update($sql);
+        $response = [
+            'message' => "Avaliação atualizada com sucesso",
+
         ];
 
         return response($response, 201);

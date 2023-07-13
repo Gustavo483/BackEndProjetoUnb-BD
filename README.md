@@ -30,7 +30,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 composer install
 ```
 
-4. Na pasta do projeto, crie um arquivo `.env`, e gere a chave para este projeto usando o comando:
+4. Na pasta do projeto, crie um arquivo `.env`, no escopo do projeto existe um arquivo chamado `.env.example` onde basta renomea-lo para `.env`. Após isso gere a chave para este projeto usando o comando:
 
 ```sh
 php artisan key:generate

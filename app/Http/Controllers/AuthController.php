@@ -124,7 +124,7 @@ class AuthController extends Controller
 
         $response = [
             'message' => 'Usuario autenticado com sucesso',
-            'usuario' => $user,
+            'usuario' => $user2,
             'token' => $token
         ];
 

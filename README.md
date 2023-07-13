@@ -42,7 +42,7 @@ php artisan key:generate
 npm install && npm run dev
 ```
 
-6. No arquivo `.env` que foi criado, estabeleça a conexão com seu banco de dados, nesse repositório existe um arquivo chamado EstruturaBancoTrabalhoBD.sql usuo para criar seu banco no SGBD de sua escolha :
+6. Nesse repositório existe um arquivo chamado EstruturaBancoTrabalhoBD.sql use-o para criar seu banco de dados no SGBD de sua escolha. No arquivo `.env` que foi criado, estabeleça a conexão com seu banco de dados:
 
 ```sh
 DB_CONNECTION=mysql

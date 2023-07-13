@@ -16,24 +16,28 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::controller(AuthController::class)->group(function () {
-        Route::get('teste', 'teste')->name('teste');
         Route::post('logout', 'logout')->name('logout');
-        Route::get('editUsuario', 'editUsuario')->name('editUsuario');
-        Route::put('updateUsuario/{id_usuario}', 'updateUsuario')->name('updateUsuario');
+        Route::post('updateUsuario/{id_usuario}', 'updateUsuario')->name('updateUsuario');
     });
 
     Route::controller(AvaliacoesController::class)->group(function () {
         Route::post('filtrarTurmas', 'filtrarTurmas')->name('filtrarTurmas');
-        Route::post('criarAvaliacao/{id_turma}', 'criarAvaliacao')->name('criarAvaliacao');
+        Route::post('criarAvaliacao/{id_usuario}', 'criarAvaliacao')->name('criarAvaliacao');
         Route::put('updateAvaliacao', 'updateAvaliacao')->name('updateAvaliacao');
         Route::get('editarAvaliacao/{id_avaliacao}', 'editarAvaliacao')->name('editarAvaliacao');
         Route::get('getAllDepartamento', 'getAllDepartamento')->name('getAllDepartamento');
         Route::get('getDisciplinas/{id_departamento}', 'getDisciplinas')->name('getDisciplinas');
-        Route::get('getAvaliacoesUsuario/', 'getAvaliacoesUsuario')->name('getAvaliacoesUsuario');
+        Route::get('getAvaliacoesUsuario/{id_usuario}', 'getAvaliacoesUsuario')->name('getAvaliacoesUsuario');
         Route::delete('DeleteAvaliacao/{id_avaliacao}', 'DeleteAvaliacao')->name('DeleteAvaliacao');
         Route::get('getProfessores/{id_departamento}', 'getProfessores')->name('getProfessores');
-        Route::post('criarAvaliacaoProfessor', 'criarAvaliacaoProfessor')->name('criarAvaliacaoProfessor');
-        Route::get('getAvaliacoesProfessoresUsuario/', 'getAvaliacoesProfessoresUsuario')->name('getAvaliacoesProfessoresUsuario');
+        Route::post('criarAvaliacaoProfessor/{id_usuario}', 'criarAvaliacaoProfessor')->name('criarAvaliacaoProfessor');
+        Route::post('denunciarAvaliacao/{id_avaliacao}/{id_usuario}', 'denunciarAvaliacao')->name('denunciarAvaliacao');
+        Route::get('getAvaliacoesProfessoresUsuario/{id_usuario}', 'getAvaliacoesProfessoresUsuario')->name('getAvaliacoesProfessoresUsuario');
+        Route::get('getDenuncias', 'getDenuncias')->name('getDenuncias');
+        Route::get('getDenunciasProfessor', 'getDenunciasProfessor')->name('getDenunciasProfessor');
+        Route::delete('ignorarDenuncia/{id_denuncia}', 'ignorarDenuncia')->name('ignorarDenuncia');
+        Route::delete('removerComentario/{id_denuncia}/{id_avaliacao}', 'removerComentario')->name('removerComentario');
+        Route::delete('removerUsuario/{id_denuncia}/{id_avaliacao}/{id_usuario}', 'removerUsuario')->name('removerUsuario');
     });
 });
 
